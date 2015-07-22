@@ -2,7 +2,7 @@
 
 md5passwd=$(echo -n $iliasmasterpassword | md5sum | cut -f1 -d' ')
 
-sed -i "s|inserthttppath|$httppath|g" /var/www/html/ilias/ilias.ini.php
+sed -i "s|inserthttppath|$httppath/ilias/|g" /var/www/html/ilias/ilias.ini.php
 sed -i "s|inserttimezone|$timezone|g" /var/www/html/ilias/ilias.ini.php
 sed -i "s|insertdefaultclientid|$clientid|g" /var/www/html/ilias/ilias.ini.php
 sed -i "s|insertmd5adminpassword|$md5passwd|g" /var/www/html/ilias/ilias.ini.php

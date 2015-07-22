@@ -1,7 +1,7 @@
 FROM whiledo/ilias-base:latest
 MAINTAINER Kevin Krummenauer <kevin@whiledo.de>
 
-ENV httppath="http://localhost/" \
+ENV httppath="http://localhost" \
     timezone="Europe/Berlin" \
     clientid="myilias" \
     iliasmasterpassword="secret" \
@@ -25,13 +25,21 @@ WORKDIR /data
 ADD resources /data/resources
 
 
-RUN cp -r /data/resources/varwwwhtmlilias/* /var/www/html/ilias \
+RUN mkdir -p /var/www/html/ilias/data/myilias/css \
+&& mkdir -p /var/www/html/ilias/data/myilias/lm_data \
+&& mkdir -p /var/www/html/ilias/data/myilias/mobs \
+&& mkdir -p /var/www/html/ilias/data/myilias/usr_images \
+&& cp /data/resources/ilias.ini.php /var/www/html/ilias \
+&& cp /data/resources/client.ini.php /var/www/html/ilias/data/myilias \
 && chown -R www-data:www-data /var/www/html/ilias \
 && chmod -R 775 /var/www/html/ilias/data \
 && chmod 666 /var/www/html/ilias/ilias.ini.php \
 && chmod 666 /var/www/html/ilias/data/myilias/client.ini.php \
 
-&& cp -r /data/resources/optiliasdata/* /opt/iliasdata \
+&& mkdir -p /opt/iliasdata/myilias/files \
+&& mkdir -p /opt/iliasdata/myilias/forum \
+&& mkdir -p /opt/iliasdata/myilias/lm_data \
+&& mkdir -p /opt/iliasdata/myilias/mail \
 && chown -R www-data:www-data /opt/iliasdata \
 && chmod -R 751 /opt/iliasdata \
 
