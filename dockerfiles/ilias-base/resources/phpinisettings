@@ -1,0 +1,22 @@
+; you may choose higher values for max_execution_time and memory_limit
+max_execution_time = 600
+memory_limit = 200M
+ 
+; you may set display_errors = Off if the system runs in a production environment
+;error_reporting = E_ALL & ~E_NOTICE ; up to PHP 5.2.x
+;error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED ; PHP 5.3.0 and higher
+error_reporting = E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT ; PHP 5.4.0 and higher
+display_errors = On
+ 
+; or any higher values for post_max_size and upload_max_filesize
+post_max_size = 60M
+upload_max_filesize = 40M
+
+; choose a non-zero value for session.gc_probability, otherwise old session data will not be deleted
+session.gc_probability = 1
+session.gc_divisor = 100
+session.gc_maxlifetime = 3600
+session.hash_function = 0
+ 
+; for chat server since ILIAS 4.2
+allow_url_fopen = 1
