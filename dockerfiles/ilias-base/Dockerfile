@@ -47,7 +47,14 @@ RUN sed -i 's/max_execution_time/;max_execution_time/g' /etc/php5/apache2/php.in
 RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.0.3.tar.gz -O /data/resources/ilias.tar.gz \
 && tar xzvf /data/resources/ilias.tar.gz -C /var/www/html/ \
 && mv /var/www/html/ILIAS-5.0.3 /var/www/html/ilias \
-&& rm /data/resources/ilias.tar.gz
+&& rm /data/resources/ilias.tar.gz \
+
+&& chown -R www-data:www-data /var/www/html/ilias \
+&& mkdir /opt/iliasdata \
+&& chown www-data:www-data /opt/iliasdata \
+&& chmod 751 /opt/iliasdata \
+
+&& rm -r /data/resources \
 
 && /etc/init.d/apache2 restart
 
