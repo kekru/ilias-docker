@@ -23,8 +23,8 @@ if [ "$initmysql" = "yes" ]; then
 	sed -i "s|myilias|$clientid|g" /data/resources/iliascleandb.sql
 	sed -i "s|FirstNameXX99|$initadminfirstname|g" /data/resources/iliascleandb.sql
 	sed -i "s|LastNameXX99|$initadminlastname|g" /data/resources/iliascleandb.sql
-	sed -i "s|emailmailXX99|$initadminemail|g" /data/resources/iliascleandb.sql
-	sed -i "s|feedbackmailXX99|$initfeedbackemail|g" /data/resources/iliascleandb.sql
+	sed -i "s|emailmailXX99@x.de|$initadminemail|g" /data/resources/iliascleandb.sql
+	sed -i "s|feedbackmailXX99@x.de|$initfeedbackemail|g" /data/resources/iliascleandb.sql
 
 	mysql -u $mysqluser --password="$mysqlpassword" --host=$mysqlhost --port=$mysqlport < /data/resources/iliascleandb.sql
 

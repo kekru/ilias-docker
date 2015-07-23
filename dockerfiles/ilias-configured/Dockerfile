@@ -44,9 +44,7 @@ RUN mkdir -p /var/www/html/ilias/data/myilias/css \
 && chmod -R 751 /opt/iliasdata \
 
 && chown www-data:www-data /data/resources/entrypoint.sh \
-&& chmod 751 /data/resources/entrypoint.sh \ 
-
-&& /etc/init.d/apache2 restart
+&& chmod 751 /data/resources/entrypoint.sh
 
 EXPOSE 80 443
 
