@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 	openjdk-7-jdk
 
 WORKDIR /data
-ADD resources /data/resources
+ADD resources /data/resources/base
 
 #Disable old settings
 RUN sed -i 's/max_execution_time/;max_execution_time/g' /etc/php5/apache2/php.ini \
@@ -41,28 +41,37 @@ RUN sed -i 's/max_execution_time/;max_execution_time/g' /etc/php5/apache2/php.in
 && sed -i 's/allow_url_fopen/;allow_url_fopen/g' /etc/php5/apache2/php.ini \
 
 #Insert new settings, as described here http://www.ilias.de/docu/ilias.php?ref_id=367&obj_id=6531&obj_type=PageObject&cmd=layout&cmdClass=illmpresentationgui&cmdNode=kd&baseClass=ilLMPresentationGUI
-&& cat /data/resources/phpinisettings >> /etc/php5/apache2/php.ini
+&& cat /data/resources/base/phpinisettings >> /etc/php5/apache2/php.ini
 
 #Then download ilias, unzip it and restart apache2
-RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.0.3.tar.gz -O /data/resources/ilias.tar.gz \
-&& tar xzvf /data/resources/ilias.tar.gz -C /var/www/html/ \
+RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.0.3.tar.gz -O /data/resources/base/ilias.tar.gz \
+&& tar xzvf /data/resources/base/ilias.tar.gz -C /var/www/html/ \
 && mv /var/www/html/ILIAS-5.0.3 /var/www/html/ilias \
-&& rm /data/resources/ilias.tar.gz \
+&& rm /data/resources/base/ilias.tar.gz
 
-&& chown -R www-data:www-data /var/www/html/ilias \
+#RUN unzip /data/resources/base/ILIAS-5.0.3.zip -d /var/www/html/ \
+#&& mv /var/www/html/ILIAS-5.0.3 /var/www/html/ilias \
+#&& rm /data/resources/base/ILIAS-5.0.3.zip
+
+RUN chown -R www-data:www-data /var/www/html/ilias \
 && mkdir /opt/iliasdata \
 && chown www-data:www-data /opt/iliasdata \
 && chmod 751 /opt/iliasdata \
 
-&& rm -r /data/resources \
+&& chown www-data:www-data /data/resources/base/entrypoint.sh \
+&& chmod 751 /data/resources/base/entrypoint.sh \
 
 && /etc/init.d/apache2 restart
 
-EXPOSE 80
-EXPOSE 443
+ENV apachestartmode="FOREGROUND"
+
+ENTRYPOINT ["/data/resources/base/entrypoint.sh"]
+
+EXPOSE 80 443
 
 #run apache in foreground mode, otherwise docker would stop running image directly after having started
-CMD ["apache2ctl", "-D", "FOREGROUND"]
+#CMD ["apache2ctl", "-D", "FOREGROUND"]
+
 
 #now run with docker run -d -p 80:80 whiledo/ilias
 #then start configuration on http://<your-IP>/ilias

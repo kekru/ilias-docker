@@ -22,15 +22,15 @@ ENV httppath="http://localhost" \
 
 
 WORKDIR /data
-ADD resources /data/resources
+ADD resources /data/resources/configured
 
 
 RUN mkdir -p /var/www/html/ilias/data/myilias/css \
 && mkdir -p /var/www/html/ilias/data/myilias/lm_data \
 && mkdir -p /var/www/html/ilias/data/myilias/mobs \
 && mkdir -p /var/www/html/ilias/data/myilias/usr_images \
-&& cp /data/resources/ilias.ini.php /var/www/html/ilias \
-&& cp /data/resources/client.ini.php /var/www/html/ilias/data/myilias \
+&& cp /data/resources/configured/ilias.ini.php /var/www/html/ilias \
+&& cp /data/resources/configured/client.ini.php /var/www/html/ilias/data/myilias \
 && chown -R www-data:www-data /var/www/html/ilias \
 && chmod -R 775 /var/www/html/ilias/data \
 && chmod 666 /var/www/html/ilias/ilias.ini.php \
@@ -43,12 +43,10 @@ RUN mkdir -p /var/www/html/ilias/data/myilias/css \
 && chown -R www-data:www-data /opt/iliasdata \
 && chmod -R 751 /opt/iliasdata \
 
-&& chown www-data:www-data /data/resources/entrypoint.sh \
-&& chmod 751 /data/resources/entrypoint.sh
-
-EXPOSE 80 443
+&& chown www-data:www-data /data/resources/configured/entrypoint.sh \
+&& chmod 751 /data/resources/configured/entrypoint.sh
 
 #run apache in foreground mode, otherwise docker would stop running image directly after having started
-ENTRYPOINT ["/data/resources/entrypoint.sh"]
+ENTRYPOINT ["/data/resources/configured/entrypoint.sh"]
 
 #now run with docker run -d -p 80:80 whiledo/ilias
