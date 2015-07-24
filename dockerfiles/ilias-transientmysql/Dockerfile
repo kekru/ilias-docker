@@ -13,9 +13,10 @@ WORKDIR /data
 ADD resources /data/resources/transientmysql
 
 RUN chown www-data:www-data /data/resources/transientmysql/entrypoint.sh \
-&& chmod 751 /data/resources/transientmysql/entrypoint.sh
+&& chmod 751 /data/resources/transientmysql/entrypoint.sh \
+&& chown www-data:www-data /data/resources/transientmysql/createiliasdump.sh \
+&& chmod 751 /data/resources/transientmysql/createiliasdump.sh
 
 ENTRYPOINT ["/data/resources/transientmysql/entrypoint.sh"]
 
 EXPOSE 3306
-
