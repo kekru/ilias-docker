@@ -15,7 +15,7 @@ do
 key="$1"
 
 case $key in
-    ---host)
+    --host)
     HOST="$2"
     shift # past argument
     ;;
@@ -70,4 +70,11 @@ cp -a "/data/resources/iliasrestore/iliasdump/ilias.ini.php" "/var/www/html/ilia
 
 mysql -u "$USER" --password="$PASSWORD" --host=$HOST --port=$PORT < "/data/resources/iliasrestore/iliasdump/ilias.sql"
 
-#rm -r "$DUMP"
+rm -r "$DUMP"
+
+chown -R www-data:www-data "$WWWDATA"
+chown -R www-data:www-data "$DATA"
+chmod -R 775 "$WWWDATA"
+chmod -R 775 "$DATA"
+chown www-data:www-data /var/www/html/ilias/ilias.ini.php
+chmod 666 /var/www/html/ilias/ilias.ini.php

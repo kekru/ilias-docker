@@ -6,16 +6,15 @@ RUN apt-get update && apt-get install -y \
 
 
 ENV containermysql_rootpw="my-secret-pw" \
-    initmysql="yes"
+    initmysql="yes" \
+    remotemysql="no"
 
 
 WORKDIR /data
 ADD resources /data/resources/transientmysql
 
 RUN chown www-data:www-data /data/resources/transientmysql/entrypoint.sh \
-&& chmod 751 /data/resources/transientmysql/entrypoint.sh \
-&& chown www-data:www-data /data/resources/transientmysql/createiliasdump.sh \
-&& chmod 751 /data/resources/transientmysql/createiliasdump.sh
+&& chmod 751 /data/resources/transientmysql/entrypoint.sh
 
 ENTRYPOINT ["/data/resources/transientmysql/entrypoint.sh"]
 

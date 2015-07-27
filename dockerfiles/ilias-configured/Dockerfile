@@ -2,6 +2,7 @@ FROM whiledo/ilias-base:latest
 MAINTAINER Kevin Krummenauer <kevin@whiledo.de>
 
 ENV httppath="http://localhost" \
+    iliaspath="ilias" \
     timezone="Europe/Berlin" \
     clientid="myilias" \
     iliasmasterpassword="secret" \

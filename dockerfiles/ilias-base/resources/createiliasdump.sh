@@ -15,7 +15,7 @@ do
 key="$1"
 
 case $key in
-    ---host)
+    --host)
     HOST="$2"
     shift # past argument
     ;;

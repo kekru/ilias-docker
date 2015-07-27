@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo "running: $mysqlhost"
 md5passwd=$(echo -n $iliasmasterpassword | md5sum | cut -f1 -d' ')
 
 sed -i "s|inserthttppath|$httppath/ilias/|g" /var/www/html/ilias/ilias.ini.php

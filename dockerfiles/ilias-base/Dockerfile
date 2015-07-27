@@ -58,12 +58,23 @@ RUN chown -R www-data:www-data /var/www/html/ilias \
 && chown www-data:www-data /opt/iliasdata \
 && chmod 751 /opt/iliasdata \
 
+&& mkdir /data/share \
+&& chown www-data:www-data /data/share \
+&& chmod 751 /data/share \
+
 && chown www-data:www-data /data/resources/base/entrypoint.sh \
 && chmod 751 /data/resources/base/entrypoint.sh \
 
+&& chown www-data:www-data /data/resources/base/createiliasdump.sh \
+&& chmod 751 /data/resources/base/createiliasdump.sh \
+&& chown www-data:www-data /data/resources/base/restoreilias.sh \
+&& chmod 751 /data/resources/base/restoreilias.sh \
+
 && /etc/init.d/apache2 restart
 
-ENV apachestartmode="FOREGROUND"
+ENV apachestartmode="FOREGROUND" \
+    createdump="no" \
+    restorefromdump="no"
 
 ENTRYPOINT ["/data/resources/base/entrypoint.sh"]
 
