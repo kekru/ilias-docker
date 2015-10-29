@@ -14,30 +14,6 @@ Restart the container using `docker start mydocker`
 
 Add `-e initmysql="yes"` to the docker run command to initialize the MySQL Ilias DB.
 
-## Configuration
-Add the following Options with -e to docker run to change the configuration (e.g. `docker run ... -e mysqlhost="192.168.0.100" -e initmysql="yes" ... whiledo/ilias-configured`).  
-The values you see here are the default vaules:  
-
-+ httppath="http://localhost"  
-+ iliaspath="ilias"  
-+ timezone="Europe/Berlin"  
-+ clientid="myilias"  
-+ iliasmasterpassword="secret"  
-
-+ mysqlhost="127.0.0.1"  
-+ mysqluser="root"  
-+ mysqlpassword="my-secret-pw"  
-+ mysqldbname="ilias"  
-+ mysqlport="3306"  
-
-+ language="de"  
-    
-+ initmysql="no"  
-+ initadminfirstname="Kevin"  
-+ initadminlastname="Krummenauer"  
-+ initadminemail="kevin@whiledo.de"  
-+ initfeedbackemail="kevin@whiledo.de" 
-
 ## Not supported yet  
 NOT supported yet is
 + HTTPS
