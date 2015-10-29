@@ -1,4 +1,4 @@
-# Ilias Transient MySQL
+﻿# Ilias Transient MySQL
 
 This is the Ilias image for testing use. It contains a MySQL DB without a mounted volume.
 

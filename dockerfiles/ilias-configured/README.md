@@ -1,4 +1,4 @@
-# Ilias Configured
+﻿# Ilias Configured
 
 This is the image for Ilias with basic configuration (Ilias Settings and MySQL Connection).
 
