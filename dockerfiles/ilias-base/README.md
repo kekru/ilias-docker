@@ -1,4 +1,4 @@
-﻿# Ilias Base
+﻿## Ilias Base
 
 This is the base image for the Ilias server.
 
@@ -6,7 +6,7 @@ Run the following way:
 `docker run -d -p 80:80 whiledo/ilias-base`  
 
 If you want your files being saved to disk, mount the /var/www/html/ilias/ of the image as a Volume.  
-Add `--name mydocker -v /var/www/html/ilias/ -v /var/www/html/ilias/` when running the image or use the [Ilias Prod Image](https://hub.docker.com/r/whiledo/ilias-prod/).
+Add `--name mydocker -v /var/www/html/ilias/ -v /opt/iliasdata/` when running the image or use the [Ilias Prod Image](https://hub.docker.com/r/whiledo/ilias-prod/).
 
 Restart the container using `docker start mydocker`
 

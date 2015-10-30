@@ -1,4 +1,4 @@
-﻿# Ilias Prod
+﻿## Ilias Prod
 
 This is the Ilias image for production use. It does not contain a MySQL.  
 
@@ -6,7 +6,7 @@ Run the MySQL
 `docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d -p 3306:3306 mysql`
 
 Run the following way:  
-`docker run --name mydocker -d -p 80:80 -e mysqlhost="192.168.0.100" whiledo/ilias-configured`  
+`docker run --name mydocker -d -p 80:80 -e mysqlhost="192.168.0.100" -e mysqluser="root" -e mysqlpassword="my-secret-pw"  whiledo/ilias-prod`  
 Replace the IP with the IP of the MySQL Host. When its is on the same Docker Host, insert the IP of the Docker Host. 127.0.0.1 and localhost will not work.
 
 Restart the container using `docker start mydocker`

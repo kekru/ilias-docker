@@ -1,12 +1,12 @@
-﻿# Ilias Transient MySQL
+﻿## Ilias Transient MySQL
 
 This is the Ilias image for testing use. It contains a MySQL DB without a mounted volume.
 
 Run the following way:  
-`docker run -d -p 80:80 whiledo/ilias-transientmysl`  
+`docker run -d -p 80:80 whiledo/ilias-transientmysql`  
 
 If you want to persist the MySQL and Ilias Data add the following to the run command:  
-`--name mydocker -v /var/www/html/ilias/ -v /var/www/html/ilias/ -v /var/lib/mysql`
+`--name mydocker -v /var/www/html/ilias/ -v /opt/iliasdata/ -v /var/lib/mysql`
 
 Add `-e initmysql="no"` to NOT initialize the MySQL Ilias-Database
 
