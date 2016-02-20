@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM whiledo/letsencrypt-apache-ubuntu
 MAINTAINER Kevin Krummenauer <kevin@whiledo.de>
 
 #Install packages as described here http://www.ilias.de/docu/ilias.php?ref_id=367&from_page=6531&obj_id=56842&cmd=layout&cmdClass=illmpresentationgui&cmdNode=kd&baseClass=ilLMPresentationGUI
@@ -6,7 +6,7 @@ MAINTAINER Kevin Krummenauer <kevin@whiledo.de>
 RUN apt-get update && apt-get install -y \
 	wget \
 	zip \
-	apache2 \
+#	apache2 \
 	php5 \
 	php5-gd \
 	php5-mysql \
@@ -70,6 +70,8 @@ RUN chown -R www-data:www-data /var/www/html/ilias \
 && chown www-data:www-data /data/resources/base/restoreilias.sh \
 && chmod 751 /data/resources/base/restoreilias.sh \
 
+&& sed -i 's|/var/www/html|/var/www/html/ilias|g' /etc/apache2/sites-enabled/000-default.conf \
+
 && /etc/init.d/apache2 restart
 
 ENV apachestartmode="FOREGROUND" \
@@ -86,3 +88,4 @@ EXPOSE 80 443
 
 #now run with docker run -d -p 80:80 whiledo/ilias
 #then start configuration on http://<your-IP>/ilias
+

@@ -41,7 +41,6 @@ The values you see here are the default vaules:
 ## Not supported yet  
 NOT supported yet is
 + Change the Ilias Client ID, it is always "myilias"
-+ HTTPS
 + Dockers containers linking
 
 ## Create Dump of Data and Restore
@@ -72,4 +71,16 @@ To save data to disk, mount "/var/lib/mysql" as a volume when you start the cont
 
 The [Ilias Prod Image](https://hub.docker.com/r/whiledo/ilias-prod/) contains the 
 Configured Ilias but no MySQL. You should run the [Official MySQL](https://hub.docker.com/_/mysql/) Image for production use.  
+
+
+## Admin Login  
+When setup is completed, login with the following credentials  
+Username: `root`  
+Password: `homer`  
+
+## Free HTTPS certificate  
+This image contains [Let's Encrypt](https://letsencrypt.org/).  
+Install the free certificate as shown here [whiledo/letsencrypt-apache-ubuntu/](https://hub.docker.com/r/whiledo/letsencrypt-apache-ubuntu/)  
+
+
 
