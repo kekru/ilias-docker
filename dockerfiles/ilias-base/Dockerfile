@@ -1,12 +1,12 @@
 FROM whiledo/letsencrypt-apache-ubuntu
 MAINTAINER Kevin Krummenauer <kevin@whiledo.de>
 
-#Install packages as described here http://www.ilias.de/docu/ilias.php?ref_id=367&from_page=6531&obj_id=56842&cmd=layout&cmdClass=illmpresentationgui&cmdNode=kd&baseClass=ilLMPresentationGUI
+#Install packages as described here http://www.ilias.de/docu/goto_docu_pg_64272_367.html
 #no mysql-client and no mysql-server, because they should run in a separate Docker container
 RUN apt-get update && apt-get install -y \
 	wget \
 	zip \
-#	apache2 \
+#	apache2 \ #already installed in baseimage
 	php5 \
 	php5-gd \
 	php5-mysql \
@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y \
 	htmldoc \
 	imagemagick \
 	mysql-client \
-	sendmail \
-	openjdk-7-jdk
+	sendmail
+#	openjdk-7-jdk #not needed most times, install it with apt-get install -y openjdk-7-jdk if you need 
 
 WORKDIR /data
 ADD resources /data/resources/base
@@ -40,13 +40,13 @@ RUN sed -i 's/max_execution_time/;max_execution_time/g' /etc/php5/apache2/php.in
 
 && sed -i 's/allow_url_fopen/;allow_url_fopen/g' /etc/php5/apache2/php.ini \
 
-#Insert new settings, as described here http://www.ilias.de/docu/ilias.php?ref_id=367&obj_id=6531&obj_type=PageObject&cmd=layout&cmdClass=illmpresentationgui&cmdNode=kd&baseClass=ilLMPresentationGUI
+#Insert new settings, as described here http://www.ilias.de/docu/goto_docu_pg_6531_367.html
 && cat /data/resources/base/phpinisettings >> /etc/php5/apache2/php.ini
 
 #Then download ilias, unzip it and restart apache2
-RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.0.3.tar.gz -O /data/resources/base/ilias.tar.gz \
+RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.1.3.tar.gz -O /data/resources/base/ilias.tar.gz \
 && tar xzvf /data/resources/base/ilias.tar.gz -C /var/www/html/ \
-&& mv /var/www/html/ILIAS-5.0.3 /var/www/html/ilias \
+&& mv /var/www/html/ILIAS-5.1.3 /var/www/html/ilias \
 && rm /data/resources/base/ilias.tar.gz
 
 #RUN unzip /data/resources/base/ILIAS-5.0.3.zip -d /var/www/html/ \
@@ -70,22 +70,17 @@ RUN chown -R www-data:www-data /var/www/html/ilias \
 && chown www-data:www-data /data/resources/base/restoreilias.sh \
 && chmod 751 /data/resources/base/restoreilias.sh \
 
-&& sed -i 's|/var/www/html|/var/www/html/ilias|g' /etc/apache2/sites-enabled/000-default.conf \
-
-&& /etc/init.d/apache2 restart
+#Problem in LetsEncrypt when changing the DocumentRoot...
+#&& sed -i 's|/var/www/html|/var/www/html/ilias|g' /etc/apache2/sites-enabled/000-default.conf \
+#...so we do a http redirect to /ilias
+&& rm /var/www/html/index.html \ 
+&& echo "<?php header('Location: ilias'); ?>" > /var/www/html/index.php 
 
 ENV apachestartmode="FOREGROUND" \
     createdump="no" \
     restorefromdump="no"
 
+EXPOSE 80 443	
+	
 ENTRYPOINT ["/data/resources/base/entrypoint.sh"]
-
-EXPOSE 80 443
-
-#run apache in foreground mode, otherwise docker would stop running image directly after having started
-#CMD ["apache2ctl", "-D", "FOREGROUND"]
-
-
-#now run with docker run -d -p 80:80 whiledo/ilias
-#then start configuration on http://<your-IP>/ilias
 
