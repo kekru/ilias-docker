@@ -44,9 +44,9 @@ RUN sed -i 's/max_execution_time/;max_execution_time/g' /etc/php5/apache2/php.in
 && cat /data/resources/base/phpinisettings >> /etc/php5/apache2/php.ini
 
 #Then download ilias, unzip it and restart apache2
-RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.1.3.tar.gz -O /data/resources/base/ilias.tar.gz \
+RUN wget https://github.com/ILIAS-eLearning/ILIAS/archive/v5.0.3.tar.gz -O /data/resources/base/ilias.tar.gz \
 && tar xzvf /data/resources/base/ilias.tar.gz -C /var/www/html/ \
-&& mv /var/www/html/ILIAS-5.1.3 /var/www/html/ilias \
+&& mv /var/www/html/ILIAS-5.0.3 /var/www/html/ilias \
 && rm /data/resources/base/ilias.tar.gz
 
 #RUN unzip /data/resources/base/ILIAS-5.0.3.zip -d /var/www/html/ \
