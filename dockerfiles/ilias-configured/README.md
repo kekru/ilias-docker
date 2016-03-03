@@ -1,4 +1,5 @@
-﻿## Ilias Configured
+﻿  
+## Ilias Configured ##  
 
 This is the image for Ilias with basic configuration (Ilias Settings and MySQL Connection).
 
@@ -82,5 +83,19 @@ Password: `homer`
 This image contains [Let's Encrypt](https://letsencrypt.org/).  
 Install the free certificate as shown here [whiledo/letsencrypt-apache-ubuntu/](https://hub.docker.com/r/whiledo/letsencrypt-apache-ubuntu/)  
 
+## Change Document Root  
+By default this image will redirect you to yourwebsite.org/ilias. If you want to get your ILIAS on yourwebsite.org you need to change the document root.  
+To change the document root create a new Dockerfile which is based on this ILIAS image.  
+Add `sed -i 's|/var/www/html|/var/www/html/ilias|g' /etc/apache2/sites-enabled/000-default.conf` to change the document root.  
+This probably causes conflicts with Let's Encrypt.  
+
+## Java  
+If you need Java in your ILIAS installation, run `apt-get install -y openjdk-7-jdk` in your running container (enter it with `docker exec -it containername bash`) or Dockerfile 
+
+## Dockerfile based on this image  
+Whenever you create a Dockerfile which is based on this image, be sure to add an ENTRYPOINT or default CMD which runs the apache webserver in foreground  
+`FROM whiledo/ilias...`  
+`...`  
+`ENTRYPOINT ["apache2ctl", "-D", "FOREGROUND"]`  
 
 
