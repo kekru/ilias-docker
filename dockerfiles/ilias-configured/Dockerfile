@@ -16,10 +16,10 @@ ENV httppath="http://localhost" \
     language="de" \
     
     initmysql="no" \
-    initadminfirstname="Kevin" \
-    initadminlastname="Krummenauer" \
-    initadminemail="kevin@whiledo.de" \
-    initfeedbackemail="kevin@whiledo.de"
+    initadminfirstname="John" \
+    initadminlastname="Doe" \
+    initadminemail="John.Doe@example.com" \
+    initfeedbackemail="John.Doe@example.com"
 
 
 WORKDIR /data
