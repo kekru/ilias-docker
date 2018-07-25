@@ -3,6 +3,9 @@
 
 This is the image for Ilias with basic configuration (Ilias Settings and MySQL Connection).
 
+Run it with an external MySQL DB:
+`docker-compose up --build --abort-on-container-exit && docker-compose logs -tf`
+
 Run the following way:  
 `docker run -d -p 80:80 whiledo/ilias-configured`  
 
@@ -42,7 +45,6 @@ The values you see here are the default vaules:
 ## Not supported yet  
 NOT supported yet is
 + Change the Ilias Client ID, it is always "myilias"
-+ Dockers containers linking
 
 ## Create Dump of Data and Restore
 The dump contains MySQL data and Filedata (e.g. User pictures).
