@@ -13,6 +13,7 @@ which
 - initializes the database called `ilias` 
 - add a database user `ilias-user` with `my-secret-pw`
 - ensures the database is up before the ilias server starts
+- stores the data of the database in the folder `./.data/db`
 
 ## External MySQL
 If you want to run it with an external MySQL DB, do it the following way: `docker run -d -p 80:80 whiledo/ilias-configured`
