@@ -3,11 +3,19 @@
 
 This is the image for Ilias with basic configuration (Ilias Settings and MySQL Connection).
 
-Run it with an external MySQL DB:
-`docker-compose up --build --abort-on-container-exit && docker-compose logs -tf`
+## Preconfigured MySQL in another container
+Run it with a MySQL DB in another docker container:
+```sh
+$ docker-compose up --build --abort-on-container-exit 
+$ docker-compose logs -tf # to follow the logs
+```
+which 
+- initializes the database called `ilias` 
+- add a database user `ilias-user` with `my-secret-pw`
+- ensures the database is up before the ilias server starts
 
-Run the following way:  
-`docker run -d -p 80:80 whiledo/ilias-configured`  
+## External MySQL
+If you want to run it with an external MySQL DB, do it the following way: `docker run -d -p 80:80 whiledo/ilias-configured`
 
 If you want your files being saved to disk, mount the /var/www/html/ilias/ of the image as a Volume.  
 Add `--name mydocker -v /var/www/html/ilias/ -v /opt/iliasdata/` when running the image or use the [Ilias Prod Image](https://hub.docker.com/r/whiledo/ilias-prod/).
@@ -59,7 +67,7 @@ Leave the container with `exit` and run `docker cp <containerid>:/data/share/ili
 There are two possibilities:
 + Put the dump to `/home/usernameOfDockerHost/ilias.tar.gz` and add `-e restorefromdump="yes" -v /home/usernameOfDockerHost:/data/share` to docker run. 
 + Run `docker cp <containerid>:/home/usernameOfDockerHost/ilias.tar.gz /data/share` to copy the dump file from your host to the container.  
-Enter a running container with `docker exec -it <conatinerid> /bin/bash` and run `/data/resources/base/restoreilias.sh --src /data/share/ilias.tar.gz`   
+Enter a running container with `docker exec -it <containerId> /bin/bash` and run `/data/resources/base/restoreilias.sh --src /data/share/ilias.tar.gz`   
 
 ## Project's parts ##
 The [Base Image](https://hub.docker.com/r/whiledo/ilias-base/) contains Apache and an unconfigured Ilias server.
