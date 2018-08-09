@@ -19,28 +19,28 @@ ENV httppath="http://localhost" \
     initfeedbackemail="John.Doe@example.com"
 
 WORKDIR /data
-ADD ./resources /data/resources/configured
+COPY ./resources /data/resources/configured
 
-RUN mkdir -p /var/www/html/ilias/data/myilias/css
-RUN mkdir -p /var/www/html/ilias/data/myilias/lm_data
-RUN mkdir -p /var/www/html/ilias/data/myilias/mobs
-RUN mkdir -p /var/www/html/ilias/data/myilias/usr_images
-RUN cp /data/resources/configured/ilias.ini.php /var/www/html/ilias
-RUN cp /data/resources/configured/client.ini.php /var/www/html/ilias/data/myilias
-RUN chown -R www-data:www-data /var/www/html/ilias
-RUN chmod -R 775 /var/www/html/ilias/data
-RUN chmod 666 /var/www/html/ilias/ilias.ini.php
-RUN chmod 666 /var/www/html/ilias/data/myilias/client.ini.php
+RUN mkdir -p /var/www/html/ilias/data/myilias/css \
+&& mkdir -p /var/www/html/ilias/data/myilias/lm_data \
+&& mkdir -p /var/www/html/ilias/data/myilias/mobs \
+&& mkdir -p /var/www/html/ilias/data/myilias/usr_images \
+&& cp /data/resources/configured/ilias.ini.php /var/www/html/ilias \
+&& cp /data/resources/configured/client.ini.php /var/www/html/ilias/data/myilias \
+&& chown -R www-data:www-data /var/www/html/ilias \
+&& chmod -R 775 /var/www/html/ilias/data \
+&& chmod 666 /var/www/html/ilias/ilias.ini.php \
+&& chmod 666 /var/www/html/ilias/data/myilias/client.ini.php \
 
-RUN mkdir -p /opt/iliasdata/myilias/files
-RUN mkdir -p /opt/iliasdata/myilias/forum
-RUN mkdir -p /opt/iliasdata/myilias/lm_data
-RUN mkdir -p /opt/iliasdata/myilias/mail
-RUN chown -R www-data:www-data /opt/iliasdata
-RUN chmod -R 751 /opt/iliasdata
+&& mkdir -p /opt/iliasdata/myilias/files \
+&& mkdir -p /opt/iliasdata/myilias/forum \
+&& mkdir -p /opt/iliasdata/myilias/lm_data \
+&& mkdir -p /opt/iliasdata/myilias/mail \
+&& chown -R www-data:www-data /opt/iliasdata \
+&& chmod -R 751 /opt/iliasdata \
 
-RUN chown www-data:www-data /data/resources/configured/entrypoint.sh
-RUN chmod 751 /data/resources/configured/entrypoint.sh
+&& chown www-data:www-data /data/resources/configured/entrypoint.sh \
+&& chmod 751 /data/resources/configured/entrypoint.sh
 
 COPY ./wait.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wait.sh
