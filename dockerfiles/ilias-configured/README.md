@@ -7,13 +7,17 @@ This is the image for Ilias with basic configuration (Ilias Settings and MySQL C
 Run it with a MySQL DB in another docker container:
 ```sh
 $ docker-compose up --build --abort-on-container-exit 
-$ docker-compose logs -tf # to follow the logs
 ```
 which 
 - initializes the database called `ilias` 
 - add a database user `ilias-user` with `my-secret-pw`
 - ensures the database is up before the ilias server starts
 - stores the data of the database in the folder `./.data/db`
+
+The `host:port` defined as comma separated string in the `WAIT_FOR` envrironment variable
+are the dependend containers which have to be up and running before the current
+container boots. For example `WAIT_FOR=mysql-db:3306` wait for the MySQL database to be ready and initialized. `WAIT_FOR=other-db:3306,rabbit-mq:3306,postgres:5432` would
+wait for these 3 containers to be up.
 
 ## External MySQL
 If you want to run it with an external MySQL DB, do it the following way: `docker run -d -p 80:80 whiledo/ilias-configured`
