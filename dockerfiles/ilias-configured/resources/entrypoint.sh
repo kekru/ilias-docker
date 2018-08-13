@@ -30,4 +30,8 @@ if [ "$initmysql" = "yes" ]; then
 
 fi
 
+if [ ! -z "$WAIT_FOR" ]; then
+     wait.sh
+fi
+
 /data/resources/base/entrypoint.sh

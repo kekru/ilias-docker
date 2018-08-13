@@ -1,0 +1,42 @@
+version: '3.2'
+services:
+ mysql-db:
+    image: mysql:5.5.60
+    volumes:
+       - "./.data/db:/var/lib/mysql"
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+      - MYSQL_DATABASE=ilias
+      - MYSQL_USER=ilias-user
+      - MYSQL_PASSWORD=my-secret-pw
+    ports:
+       - "3306:3306"
+    networks:
+      local_dev_net:
+        aliases:
+          - mysql-db
+
+ ilias-server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    depends_on:
+       - mysql-db
+    restart: on-failure
+    environment:
+      - WAIT_FOR=mysql-db:3306
+      - mysqlhost=mysql-db
+      - mysqlport=3306
+      - mysqluser=ilias-user
+      - mysqlpassword=my-secret-pw
+      - initmysql=yes
+    ports:
+       - "80:80"
+    networks:
+      local_dev_net:
+        aliases:
+          - ilias-server
+
+networks:
+  local_dev_net:
+    driver: bridge
