@@ -19,7 +19,7 @@ services:
  ilias-server:
     build:
       context: ./
-      dockerfile: ./DockerfileExtDB
+      dockerfile: ./Dockerfile
     depends_on:
        - mysql-db
     restart: on-failure
